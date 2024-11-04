@@ -9,7 +9,7 @@ public class Conversation {
     ArrayList<String> Output=new ArrayList<>();
     Scanner input2 = new Scanner(System.in);
     int number;
-    String array1[] = {"Interesting","Tell me","Sure.","What is it","Really","Okay.","Oh"};
+    String array1[] = {"Interesting","Tell me","Sure.","What is it?","Really","Okay.","Oh"};
     String array3[] = {"i","you","i am","you are", "i'm","me", "me's","you're", "my", "your", "We"};
 
     /**
