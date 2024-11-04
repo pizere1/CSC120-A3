@@ -1,94 +1,143 @@
+import java.util.Random;
 import java.util.ArrayList;
 import java.util.Scanner;
-public class WordCheckers {
-        public static String replace(String sen, String Word1, String Word2) {
-            return sen.replaceAll("\\b" + Word1 + "\\b", Word2);
-        }
-    public static void main(String[] arguments) {
-        ArrayList<String> Output=new ArrayList<>();
-        Scanner input2 = new Scanner(System.in);
-        String array1[] = { " ","Hi, How have you been", "What do you think?"," That's interesting" ,"Tell me more", "Why?", "Oh!!Sure.", " What do you want?","Really","I see","Okay.."};
+public class Conversation {
+    Random rand=new Random();
+    ArrayList<String> Output=new ArrayList<>();
+    Scanner input2 = new Scanner(System.in);
+    int Number;
+    String array1[] = {"Interesting","Tell me","Sure.","What is it","Really","Okay.","Oh"};
+    String array3[] = {"i","you","i am","you are", "i'm","me", "me's","you're", "my", "your", "We"};
+    public static String replace(String sen, String old, String New) {
+        return sen.replaceAll("\\b" + old + "\\b", New);
+    }
+    public Conversation(){
         System.out.println("Please enter the number of rounds you would like to have");
-        int Number = input2.nextInt();
-        int i;
-        String sentence;
-        String array3[] = {"i","am","i'm", "you're", "my", "your", "We"};
-        String array4[] = {"you","are","you're", "i'm", "your", "my", "you"};
-        int mod=Number%9;
-        //As the first and second strings in array1[] will appear once, the rest of the array has 9 canned responses which will be repeated with respect to the needs of the user
-        int rounds= (Number-mod)/9;
-            /*if the rounds desired are less than the size of array 1, the chatbot will simply go through the defined response once*/
-        if (Number<array1.length){
-            for (int k = 0; k <= Number; k++) {
-                System.out.println(array1[k]);
-                Output.add(array1[k]);
+        Number= input2.nextInt();
+        converse();
+    }
+    public void converse() {
+        String sentence, sentence1;
+        for (int k = 0; k <= Number; k++) {
+            if(k==0){
+                String randomoutput="";
+                System.out.println(randomoutput);
+                Output.add(randomoutput);
                 sentence=input2.nextLine();
+                sentence=sentence.toLowerCase();
                 Output.add(sentence);
-                for(int j=0;j<array3.length;j++){
-                if (sentence.contains(array3[j])) {
-                    String newSentence = replace(sentence, array3[j], array4[j]);
-                    System.out.println(newSentence+"?");
-                    sentence=input2.nextLine();
-                    Output.add(sentence);
-                    k++;}
-                }
-            }}
-        /*if the desired rounds are big than array1, then execution will happen in 3 parts*/
-        else {
-                /*First one: The chatbot goes through the canned response once*/
-            for (int k = 0; k < array1.length; k++) 
-            {
-                System.out.println(array1[k]);
-                Output.add(array1[k]);
-                sentence=input2.nextLine();
-                Output.add(sentence);
-                for(int j=0;j<array3.length;j++){
-                    if (sentence.contains(array3[j])) {
-                        String newSentence = replace(sentence, array3[j], array4[j]);
-                        System.out.println(newSentence+"?");
+                for(int l=0;l<array3.length;l++){
+                    if (sentence.contains(array3[l])) {
+                        String[] words = sentence.split(" ");
+                        for (int j = 0; j < words.length; j++) {
+                            if (words[j].equals("i")) {
+                                words[j] = "you";
+                            } else if (words[j].equals("you")) {
+                                words[j] = "i";
+                            } else{}
+                            if (words[j].equals("me")) {
+                                words[j] = "you";
+                            }
+                            if (words[j].equals("my")) {
+                                words[j] = "your";
+                            } else if (words[j].equals("your")) {
+                                words[j] = "my";
+                            } else{}
+                            if (words[j].equals("i'm")) {
+                                words[j] = "you're";
+                            } else if (words[j].equals("you're")) {
+                                words[j] = "i'm'";
+                            } else{}
+                            if (words[j].equals("am")) {
+                                words[j] = "are";
+                            }
+                            if (words[j].equals("me's")) {
+                                words[j] = "you're";
+                            }
+                            if (words[j].equals("we")) {
+                                words[j] = "you'";
+                            }
+                            if (words[j].equals("our")) {
+                                words[j] = "your";
+                            }
+                        }
+                        String sentence2 = String.join(" ", words);
+                        sentence=sentence2+"?";
+                        if(sentence.contains("you am")){
+                            sentence=replace(sentence,"you am","you are");
+                        }
+                        if(sentence.contains("are i")){
+                            sentence=replace(sentence,"are i","am i");
+                        }
+                        System.out.println(sentence);
+                        Output.add(sentence);
                         sentence=input2.nextLine();
                         Output.add(sentence);
-                        k++;}
-                }
-            }
-                //Once done with the first round, the chatbot repeats for more rounds which are equal to one less than the calculated times in line 18
-            for (i = 1; i < rounds; i++)
-                    {
-                for (int j = 2; j < array1.length; j++) {
-                    Output.add(array1[j]);
-                    System.out.println(array1[j]);
-                    sentence=input2.nextLine();
-                    Output.add(sentence);
-                    for(int k=0;k<array3.length;k++){
-                        if (sentence.contains(array3[k])) {
-                            String newSentence = replace(sentence, array3[k], array4[k]);
-                            System.out.println(newSentence+"?");
-                            sentence=input2.nextLine();
-                            Output.add(sentence);
-                            j++;}
+                        k=k+1;
                     }
                 }
-            }
-        //Lastly, it runs through the remaining rounds, i.e if the number was calculated in line 17
-            if (mod != 0) {
-                for (int j = 1; j < mod; j++) 
-        //1 less than the calculated modulus as the very first round had 10 conversation lines not 9 as planned for rounds
-                {
-                    Output.add(array1[j + 1]);
-                    System.out.println(array1[j + 1]);
-                    sentence=input2.nextLine();
-                    Output.add(sentence);
-                    for(int k=0;k<array3.length;k++){
-                        if (sentence.contains(array3[j])) {
-                            String newSentence = replace(sentence, array3[k], array4[k]);
-                            System.out.println(newSentence+"?");
-                            sentence=input2.nextLine();
-                            Output.add(sentence);
-                            j++;}
+            } else {
+                int random = rand.nextInt(array1.length);
+                String randomoutput = array1[random];
+                System.out.println(randomoutput);
+                Output.add(randomoutput);
+                sentence=input2.nextLine();
+                sentence=sentence.toLowerCase();
+                Output.add(sentence);
+                for(int l=0;l<array3.length;l++){
+                    if (sentence.contains(array3[l])) {
+                        String[] words = sentence.split(" ");
+                        for (int j = 0; j < words.length; j++) {
+                            if (words[j].equals("i")) {
+                                words[j] = "you";
+                            } else if (words[j].equals("you")) {
+                                words[j] = "i";
+                            } else{}
+                            if (words[j].equals("me")) {
+                                words[j] = "you";
+                            }
+                            if (words[j].equals("my")) {
+                                words[j] = "your";
+                            } else if (words[j].equals("your")) {
+                                words[j] = "my";
+                            } else{}
+                            if (words[j].equals("i'm")) {
+                                words[j] = "you're";
+                            } else if (words[j].equals("you're")) {
+                                words[j] = "i'm'";
+                            } else{}
+                            if (words[j].equals("am")) {
+                                words[j] = "are";
+                            }
+                            if (words[j].equals("me's")) {
+                                words[j] = "you're";
+                            }
+                            if (words[j].equals("we")) {
+                                words[j] = "you'";
+                            }
+                            if (words[j].equals("our")) {
+                                words[j] = "your";
+                            }
+                        }
+                        String sentence2 = String.join(" ", words);
+                        sentence=sentence2+"?";
+                        if(sentence.contains("you am")){
+                            sentence=replace(sentence,"you am","you are");
+                        }
+                        if(sentence.contains("are i")){
+                            sentence=replace(sentence,"are i","am i");
+                        }
+                        System.out.println(sentence);
+                        Output.add(sentence);
+                        sentence=input2.nextLine();
+                        Output.add(sentence);
+                        k=k+1;
                     }
                 }
             }
         }
-        System.out.println(Output);
+        for(String element:Output){
+            System.out.println(element);
+        }
     }
 }
