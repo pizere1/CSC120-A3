@@ -2,23 +2,44 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Conversation {
+    /**
+     * Attributes
+     */
     Random rand=new Random();
     ArrayList<String> Output=new ArrayList<>();
     Scanner input2 = new Scanner(System.in);
-    int Number;
+    int number;
     String array1[] = {"Interesting","Tell me","Sure.","What is it","Really","Okay.","Oh"};
     String array3[] = {"i","you","i am","you are", "i'm","me", "me's","you're", "my", "your", "We"};
+
+    /**
+     * method to replace words in a phrase
+     * @param sen takes in the sentence
+     * @param old takes in the word to be replaced
+     * @param New takkes in the new word to insert in
+     * @return a changed sentence
+     */
     public static String replace(String sen, String old, String New) {
         return sen.replaceAll("\\b" + old + "\\b", New);
     }
+
+    /**
+     * consutructor to request for the number of rounds to be run
+     * calls the converse methdd and pass in the number
+     */
     public Conversation(){
         System.out.println("Please enter the number of rounds you would like to have");
-        Number= input2.nextInt();
-        converse();
+        number= input2.nextInt();
+        converse(number);
     }
-    public void converse() {
+
+    /***
+     * method for the actual conversation input, words change and replies by the chatbot
+     * @param number takes in the number of rounds as a parameter
+     */
+    public void converse(int number) {
         String sentence, sentence1;
-        for (int k = 0; k <= Number; k++) {
+        for (int k = 0; k <= number; k++) {
             if(k==0){
                 String randomoutput="";
                 System.out.println(randomoutput);
