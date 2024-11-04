@@ -9,6 +9,7 @@ public class Conversation {
     ArrayList<String> Output=new ArrayList<>();
     Scanner input2 = new Scanner(System.in);
     int number;
+    String randomoutput;
     String array1[] = {"Interesting","Tell me","Sure.","What is it?","Really","Okay.","Oh"};
     String array3[] = {"i","you","i am","you are", "i'm","me", "me's","you're", "my", "your", "We"};
 
@@ -98,9 +99,14 @@ public class Conversation {
                     }
                 }
             } else {
-                int random = rand.nextInt(array1.length);
-                String randomoutput = array1[random];
-                System.out.println(randomoutput);
+                if (k==1){
+                    randomoutput="Hi there, what's on your mind?";
+                    System.out.println(randomoutput);
+                } else{
+                    int random = rand.nextInt(array1.length);
+                    randomoutput = array1[random];
+                    System.out.println(randomoutput);
+                }
                 Output.add(randomoutput);
                 sentence=input2.nextLine();
                 sentence=sentence.toLowerCase();
