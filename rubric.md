@@ -52,7 +52,7 @@ __Yes___ 4 pts: Programs compile without errors or warnings
 
 __Yes___ 2 pts: Executes fully & consistently without crashing (exception/freeze)
 
-__Part___ 2 pt: Complies with style guidelines (missing items 1 pt each):
+__Yes___ 2 pt: Complies with style guidelines (missing items 1 pt each):
 
       ___Yes__ Classes & class members all have Javadoc header comments
 
